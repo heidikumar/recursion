@@ -85,7 +85,7 @@ var parseJSON = function(json) {
       }
 
       if(array_open || object_open){
-      	err();
+      	//err();
       }
       if (curr_str !== '') result.push(curr_str.trim());
       return result;
@@ -114,7 +114,7 @@ var parseJSON = function(json) {
 			   json = [];
 			   return json;
 			} else {
-				var newArray = json.split(",");
+				var newArray = seperateByCommas(json);
 				var finalArray = [];
 				for (var j=0; j<newArray.length; j++){
 					finalArray.push(parseJSON4Real(newArray[j]));
@@ -200,15 +200,6 @@ var parseJSON = function(json) {
 		} else {
 			err();
 		}
-
-		/*try {
-			var expected = JSON.parse(json);
-		} catch (err) {
-			var temp = SyntaxError("Unexpected end of input");
-			console.log(err);
-			console.log(temp);
-			throw temp;
-		}*/
 	};
 
 	var result = parseJSON4Real(json);
