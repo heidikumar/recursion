@@ -145,6 +145,7 @@ var parseJSON = function(json) {
 			var tempJson = json;
 
 			var quoteSlash_count = 0;
+			var quote_count = 0;
 			var check = balanceCheck(json);
 			json = check.join("");
 			if (json=="true"){
@@ -177,16 +178,24 @@ var parseJSON = function(json) {
 					}
 				}
 			}	
-			for (var x=0; x<tempJson.length-1; x++){
-				var ch = tempJson[x];
-				if (ch === '\\' && tempJson[x+1] === '"'){
-				       quoteSlash_count++;
+			json = strArr.join("");
+			for (var x=0; x<json.length; x++){
+				var ch = json[x];
+				if (ch === '\\' && json[x+1] === '"'){
+				    quoteSlash_count++;
+				} 
+				if (ch === '"') {
+					quote_count++;
 				}
 			};
-			if (quoteSlash_count%2 != 0){
+			if (ch === '\\') {
+				quoteSlash_count++;
+			};
+
+			if ((quote_count-quoteSlash_count)%2 != 0){
 				err();
 			}
-			json = strArr.join("");
+			
       		return json;
 		} else {
 			err();
